@@ -2,19 +2,36 @@
 
 namespace Tests\Feature\Models\Auth;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
+use App\Models\User;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordControllerTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
-    {
-        $response = $this->get('/');
+    use RefreshDatabase;
 
-        $response->assertStatus(200);
+    public function test_CheckIfForgotPasswordControllerSendsPasswordResetEmail(): void
+    {
+        $user = User::factory()->create([
+            'email' => 'john@example.com',
+        ]);
+
+        $response = $this->post('/password/email', [
+            'email' => 'john@example.com',
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertSessionHas('status', trans(Password::RESET_LINK_SENT));
+    }
+
+    public function test_CheckIfForgotPasswordControllerUsesSendsPasswordResetEmailsTrait(): void
+    {
+        $controller = new ForgotPasswordController();
+
+        $this->assertContains(SendsPasswordResetEmails::class, class_uses($controller));
     }
 }
