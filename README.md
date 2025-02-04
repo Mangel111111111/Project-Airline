@@ -1,7 +1,6 @@
 # 🛫 Project Airline
 
 This project aims to develop a web-based airline management system using Laravel 11. The system allows administrators to manage flights, airplanes, and reservations while providing users with the ability to book and cancel flights through an intuitive interface.
-![image]()
 
 ---
 ## Overview
@@ -115,25 +114,10 @@ Run tests with coverage report
 If everything is configured correctly, tests should pass, and the coverage report will show `100%` coverage.
 
 #### Test Summary:
-![image]()
+![image](https://res.cloudinary.com/del1j3jge/image/upload/v1738676547/Captura_de_pantalla_2025-02-04_143856_cqnalw.png)
 
 #### Coverage Folder:
-![image]()
-
-## 📡🌐 Airline Management API
-
-#### Create a new DNI
-
-```http
-POST /api/calculate-dni
-```
-
-#### Response:
-- **Status Code:** 200
-- **Content Type:** application/json
-
-#### Body: 
-| `Accept` | `application/json` | **Required**. A valid 8-digit integer representing the number part of the DNI  |
+![image](https://res.cloudinary.com/del1j3jge/image/upload/v1738676547/Captura_de_pantalla_2025-02-04_142701_epe75h.png)
 
 ## ✍️🙍 Author
 **Miguel Angel García:**  [![GitHub](https://img.shields.io/badge/GitHub-Perfil-black?style=flat-square&logo=github)](https://github.com/Mangel111111111)
