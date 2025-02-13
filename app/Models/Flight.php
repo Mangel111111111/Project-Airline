@@ -24,4 +24,17 @@ class Flight extends Model
     {
         return $this->belongsTo(Airplane::class);
     }
+
+    public function updateStatus()
+    {
+        if ($this->availableSeats <= 0 || now()->greaterThan($this->departureTime)) {
+            $this->status = 'inactive';
+        }
+
+        if ($this->availableSeats > 0 && now()->lessThanOrEqualTo($this->departureTime)) {
+            $this->status = 'active';
+        }
+
+        $this->save();
+    }
 }
