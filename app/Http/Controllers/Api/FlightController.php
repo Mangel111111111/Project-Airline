@@ -53,6 +53,8 @@ class FlightController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $flight = Flight::find($id);
+
         $validated = $request->validate([
             'origin' => 'sometimes|string',
             'destination' => 'sometimes|string',
