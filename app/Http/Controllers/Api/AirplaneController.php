@@ -74,6 +74,6 @@ class AirplaneController extends Controller
 
         $airplanes->delete();
 
-        return response()->json(['message' => 'Airplane deleted successfully'], 204);
+        return response()->json(['message' => 'Airplane deleted successfully'], 200);
     }
 }

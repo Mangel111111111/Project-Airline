@@ -64,6 +64,6 @@ class AirplaneControllerTest extends TestCase
 
         $response = $this->deleteJson("/api/airplane/{$airplane->id}");
 
-        $response->assertStatus(204);
+        $response->assertStatus(200);
     }
 }
