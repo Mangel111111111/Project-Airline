@@ -4,6 +4,7 @@ namespace Tests\Feature\Models;
 
 use Tests\TestCase;
 use App\Models\Flight;
+use App\Models\Airplane;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -37,5 +38,15 @@ class FlightModelTest extends TestCase
         $flight->updateStatus();
 
         $this->assertEquals('inactive', $flight->status);
+    }
+
+    public function test_CheckIfFlightModelHasRelationshipWithAirplane()
+    {
+        $airplane = Airplane::factory()->create();
+        $flight = Flight::factory()->create([
+            'airplane_id' => $airplane->id
+        ]);
+
+        $this->assertInstanceOf(Airplane::class, $flight->airplane);
     }
 }
