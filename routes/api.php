@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\FlightController;
+use App\Http\Controllers\Api\AirportController;
 use App\Http\Controllers\Api\AirplaneController;
 
 Route::get('/user', function (Request $request) {
@@ -20,3 +21,9 @@ Route::get('flights/{id}', [FlightController::class, 'show'])->name('apiIndexFli
 Route::post('flights', [FlightController::class, 'store'])->name('apiIndexFlight');
 Route::put('flights/{id}', [FlightController::class, 'update'])->name('apiIndexFlight');
 Route::delete('flights/{id}', [FlightController::class, 'destroy'])->name('apiIndexFlight');
+
+Route::get('airports', [AirportController::class, 'index'])->name('apiIndexAirplane');
+Route::post('airports', [AirportController::class, 'store'])->name('apiStoreAirplane');
+Route::get('airports/{id}', [AirportController::class, 'show'])->name('apiShowAirplane');
+Route::put('airports/{id}', [AirportController::class, 'update'])->name('apiUpdateAirplane');
+Route::delete('airports/{id}', [AirportController::class, 'destroy'])->name('apiDestroyAirplane');

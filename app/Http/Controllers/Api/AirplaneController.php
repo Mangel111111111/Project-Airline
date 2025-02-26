@@ -52,12 +52,12 @@ class AirplaneController extends Controller
 
         $validated = $request->validate([
             'model' => 'required|string',
-            'seatCapacity' => 'required|integer',
+            'seatCapacity' => 'required|integer'
         ]);
 
         $airplanes->update([
             'model' => $validated['model'],
-            'seatCapacity' => $validated['seatCapacity'],
+            'seatCapacity' => $validated['seatCapacity']
         ]);
 
         $airplanes->save();
