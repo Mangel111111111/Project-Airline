@@ -56,12 +56,12 @@ class FlightController extends Controller
         $flight = Flight::find($id);
 
         $validated = $request->validate([
-            'origin' => 'sometimes|string',
-            'destination' => 'sometimes|string',
-            'departureTime' => 'sometimes|date',
-            'arrivalTime' => 'sometimes|date|after:departureTime',
-            'airplane_id' => 'sometimes|exists:airplanes,id',
-            'availableSeats' => 'sometimes|integer|min:1',
+            'origin' => 'string',
+            'destination' => 'string',
+            'departureTime' => 'date',
+            'arrivalTime' => 'date|after:departureTime',
+            'airplane_id' => 'exists:airplanes,id',
+            'availableSeats' => 'integer|min:1',
         ]);
 
         $flight->update($validated);
