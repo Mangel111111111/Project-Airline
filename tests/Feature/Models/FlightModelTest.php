@@ -49,4 +49,16 @@ class FlightModelTest extends TestCase
 
         $this->assertInstanceOf(Airplane::class, $flight->airplane);
     }
+
+    public function test_CheckIfupdatesTheStatusToActiveCorrectly()
+    {
+        $flight = Flight::factory()->create([
+            'availableSeats' => 10,
+            'departureTime' => now()->addHours(1)
+        ]);
+
+        $flight->updateStatus();
+
+        $this->assertEquals('active', $flight->status);
+    }
 }
