@@ -36,7 +36,10 @@ The system provides the following functionalities:
 - Composer
 - Postman
 - Jira
-- Figma
+
+## 📊📁 DB Diagram
+
+![image](https://res.cloudinary.com/del1j3jge/image/upload/v1742934569/Captura_de_pantalla_2025-03-25_211710_h82izv.png)
 
 ## 🔧⚙️ Installation
 
@@ -77,7 +80,7 @@ php artisan key:generate
 
 - Execute migrations  
 ```
-php artisan migrate
+php artisan migrate --seed
 ```
 
 ## ▶️💻 Run Locally
@@ -90,12 +93,63 @@ php artisan serve
 ```
 npm run dev
 ```
+# 📄 Database Schema Documentation
 
-- For production, build assets:
-```
-npm run build
-```
+## 🧑‍💻 Users Table
 
+| Column              | Type         | Attributes                  |
+|---------------------|--------------|-----------------------------|
+| `id`               | `bigInteger` | Primary key, auto-increment |
+| `name`             | `string`     |                             |
+| `email`            | `string`     | Unique                     |
+| `email_verified_at`| `timestamp`  | Nullable                   |
+| `password`         | `string`     |                             |
+| `role`             | `string`     | Default: `user`            |
+| `remember_token`   | `string`     | Nullable                   |
+| `created_at`       | `timestamp`  | Auto-generated             |
+| `updated_at`       | `timestamp`  | Auto-generated             |
+
+---
+
+## ✈️ Airplanes Table
+
+| Column         | Type         | Attributes                  |
+|----------------|--------------|-----------------------------|
+| `id`           | `bigInteger` | Primary key, auto-increment |
+| `model`        | `string`     |                             |
+| `seatCapacity` | `integer`    |                             |
+| `created_at`   | `timestamp`  | Auto-generated             |
+| `updated_at`   | `timestamp`  | Auto-generated             |
+
+---
+
+## 🛫 Flights Table
+
+| Column            | Type         | Attributes                  |
+|-------------------|--------------|-----------------------------|
+| `id`             | `bigInteger` | Primary key, auto-increment |
+| `origin`         | `string`     |                             |
+| `destination`    | `string`     |                             |
+| `departureTime`  | `timestamp`  |                             |
+| `arrivalTime`    | `timestamp`  |                             |
+| `airplane_id`    | `bigInteger` | Foreign key (Airplanes)     |
+| `availableSeats` | `integer`    |                             |
+| `status`         | `string`     | Default: `active`           |
+| `created_at`     | `timestamp`  | Auto-generated             |
+| `updated_at`     | `timestamp`  | Auto-generated             |
+
+---
+
+## 🏢 Airports Table
+
+| Column         | Type         | Attributes                  |
+|----------------|--------------|-----------------------------|
+| `id`           | `bigInteger` | Primary key, auto-increment |
+| `name`         | `string`     |                             |
+| `city`         | `string`     |                             |
+| `country`      | `string`     |                             |
+| `created_at`   | `timestamp`  | Auto-generated             |
+| `updated_at`   | `timestamp`  | Auto-generated             |
 ## 🏃‍♂️🧪 Running Tests
 
 To run tests, update phpunit.xml:
@@ -111,13 +165,10 @@ Run tests with coverage report
   php artisan test --coverage-html=coverage-report
 ```
 
-If everything is configured correctly, tests should pass, and the coverage report will show `100%` coverage.
-
-#### Test Summary:
-![image](https://res.cloudinary.com/del1j3jge/image/upload/v1738676547/Captura_de_pantalla_2025-02-04_143856_cqnalw.png)
+If everything is configured correctly, tests should pass.
 
 #### Coverage Folder:
-![image](https://res.cloudinary.com/del1j3jge/image/upload/v1738676547/Captura_de_pantalla_2025-02-04_142701_epe75h.png)
+![image](https://res.cloudinary.com/del1j3jge/image/upload/v1742934569/Captura_de_pantalla_2025-03-25_212546_ki656t.png)
 
 ## ✍️🙍 Author
 **Miguel Angel García:**  [![GitHub](https://img.shields.io/badge/GitHub-Perfil-black?style=flat-square&logo=github)](https://github.com/Mangel111111111)
