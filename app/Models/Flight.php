@@ -13,12 +13,12 @@ class Flight extends Model
     use HasFactory;
 
     protected $fillable = [
-        'origin',
-        'destination',
+        'origin_airport_id',
+        'destination_airport_id',
         'departureTime',
         'arrivalTime',
         'airplane_id',
-        'availableSeats',
+        'seatCapacity',
         'status',
     ];
 
@@ -48,5 +48,21 @@ class Flight extends Model
     public function users()
     {
         return $this->belongsToMany(User::class, 'reservations')->withPivot('seat_number')->withTimestamps();
+    }
+
+    public function originAirport()
+    {
+        return $this->belongsTo(Airport::class, 'origin_airport_id');
+    }
+
+    public function destinationAirport()
+    {
+        return $this->belongsTo(Airport::class, 'destination_airport_id');
+    }
+
+    public function getAvailableSeatsAttribute()
+    {
+        $reservedSeats = $this->reservations()->count();
+        return $this->seatCapacity - $reservedSeats;
     }
 }

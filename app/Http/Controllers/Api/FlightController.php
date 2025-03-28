@@ -8,77 +8,81 @@ use App\Http\Controllers\Controller;
 
 class FlightController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        $flights = Flight::all();
-
+        $flights = Flight::with(['originAirport', 'destinationAirport', 'airplane'])->get();
         return response()->json($flights, 200);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'origin' => 'required|string',
-            'destination' => 'required|string',
+            'origin_airport_id' => 'required|exists:airports,id',
+            'destination_airport_id' => 'required|exists:airports,id',
             'departureTime' => 'required|date',
             'arrivalTime' => 'required|date|after:departureTime',
             'airplane_id' => 'required|exists:airplanes,id',
-            'availableSeats' => 'required|integer|min:1',
+            'seatCapacity' => 'required|integer|min:1',
+            'status' => 'required|in:active,inactive',
         ]);
 
         $flight = Flight::create($validated);
-        $flight->updateStatus();
-
         return response()->json($flight, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show($id)
     {
-        $flight = Flight::find($id);
+        $flight = Flight::with(['originAirport', 'destinationAirport', 'airplane'])->find($id);
+
+        if (!$flight) {
+            return response()->json(['error' => 'Flight not found'], 404);
+        }
 
         return response()->json($flight, 200);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
         $flight = Flight::find($id);
+
+        if (!$flight) {
+            return response()->json(['error' => 'Flight not found'], 404);
+        }
 
         $validated = $request->validate([
-            'origin' => 'string',
-            'destination' => 'string',
-            'departureTime' => 'date',
-            'arrivalTime' => 'date|after:departureTime',
-            'airplane_id' => 'exists:airplanes,id',
-            'availableSeats' => 'integer|min:1',
+            'origin_airport_id' => 'sometimes|exists:airports,id',
+            'destination_airport_id' => 'sometimes|exists:airports,id',
+            'departureTime' => 'sometimes|date',
+            'arrivalTime' => 'sometimes|date|after:departureTime',
+            'airplane_id' => 'sometimes|exists:airplanes,id',
+            'seatCapacity' => 'sometimes|integer|min:1',
+            'status' => 'sometimes|in:active,inactive',
         ]);
 
-        $flight->update($validated);
-        $flight->updateStatus();
+        $flight->update([
+            'origin_airport_id' => $validated['origin_airport_id'],
+            'destination_airport_id' => $validated['destination_airport_id'],
+            'departureTime' => $validated['departureTime'],
+            'arrivalTime' => $validated['arrivalTime'],
+            'airplane_id' => $validated['airplane_id'],
+            'seatCapacity' => $validated['seatCapacity'],
+            'status' => $validated['status'],
+        ]);
+
+        $flight->save();
 
         return response()->json($flight, 200);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy($id)
     {
         $flight = Flight::find($id);
 
-        $flight->delete();
+        if (!$flight) {
+            return response()->json(['error' => 'Flight not found'], 404);
+        }
 
+        $flight->delete();
         return response()->json(['message' => 'Flight deleted successfully'], 200);
     }
 }

@@ -13,12 +13,12 @@ return new class extends Migration
     {
         Schema::create('flights', function (Blueprint $table) {
             $table->id();
-            $table->string('origin');
-            $table->string('destination');
+            $table->foreignId('origin_airport_id')->constrained('airports')->onDelete('cascade');
+            $table->foreignId('destination_airport_id')->constrained('airports')->onDelete('cascade');
             $table->dateTime('departureTime');
             $table->dateTime('arrivalTime');
             $table->foreignId('airplane_id')->constrained()->onDelete('cascade');
-            $table->integer('availableSeats');
+            $table->integer('seatCapacity');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->timestamps();
         });
