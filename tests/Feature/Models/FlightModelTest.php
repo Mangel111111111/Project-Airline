@@ -13,7 +13,7 @@ class FlightModelTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_CheckIfcreatesAFlightCorrectly()
+    public function test_CheckIfCreatesAFlightCorrectly()
     {
         $originAirport = Airport::factory()->create();
         $destinationAirport = Airport::factory()->create();
@@ -37,7 +37,7 @@ class FlightModelTest extends TestCase
         ]);
     }
 
-    public function test_CheckIfupdatesTheStatusCorrectly()
+    public function test_CheckIfUpdatesTheStatusCorrectly()
     {
         $flight = Flight::factory()->create([
             'seatCapacity' => 100,
@@ -52,7 +52,7 @@ class FlightModelTest extends TestCase
         $this->assertEquals('inactive', $flight->status);
     }
 
-    public function test_CheckIfFlightModelHasRelationshi_pWithAirplane()
+    public function test_CheckIfFlightModelHasRelationshipWithAirplane()
     {
         $airplane = Airplane::factory()->create();
         $flight = Flight::factory()->create([
