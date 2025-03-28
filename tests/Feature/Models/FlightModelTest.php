@@ -7,6 +7,7 @@ use App\Models\Flight;
 use App\Models\Airplane;
 use App\Models\Reservation;
 use App\Models\Airport;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class FlightModelTest extends TestCase
@@ -84,4 +85,20 @@ class FlightModelTest extends TestCase
 
         $this->assertEquals(90, $flight->availableSeats);
     }
+
+    /* public function test_CheckIfFlightHasManyUsersThroughReservations(): void
+    {
+        $flight = Flight::factory()->create();
+        $users = User::factory()->count(3)->create();
+
+        foreach ($users as $user) {
+            Reservation::factory()->create([
+                'flight_id' => $flight->id,
+                'user_id' => $user->id,
+            ]);
+        }
+
+        $this->assertCount(3, $flight->users);
+        $this->assertInstanceOf(User::class, $flight->users->first());
+    } */
 }
