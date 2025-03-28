@@ -46,21 +46,40 @@ class FlightControllerTest extends TestCase
 
     public function test_CheckIfCanUpdateAFlight()
     {
+        $originAirport = Airport::factory()->create();
+        $destinationAirport = Airport::factory()->create();
+        $airplane = Airplane::factory()->create();
+
         $flight = Flight::factory()->create([
-            'seatCapacity' => 100,
+            'origin_airport_id' => $originAirport->id,
+            'destination_airport_id' => $destinationAirport->id,
+            'departureTime' => now()->addHours(5)->toDateTimeString(),
+            'arrivalTime' => now()->addHours(8)->toDateTimeString(),
+            'airplane_id' => $airplane->id,
+            'seatCapacity' => 150,
             'status' => 'active',
         ]);
 
         $data = [
-            'seatCapacity' => 120,
+            'origin_airport_id' => $originAirport->id,
+            'destination_airport_id' => $destinationAirport->id,
+            'departureTime' => now()->addHours(5)->toDateTimeString(),
+            'arrivalTime' => now()->addHours(8)->toDateTimeString(),
+            'airplane_id' => $airplane->id,
+            'seatCapacity' => 250,
             'status' => 'inactive',
         ];
 
         $response = $this->putJson("/api/flights/{$flight->id}", $data);
 
-        $response->assertStatus(200);
-        $response->assertJsonFragment($data);
-        $this->assertDatabaseHas('flights', $data);
+        $response->assertStatus(200)
+                 ->assertJsonFragment($data);
+
+        $this->assertDatabaseHas('flights', [
+            'id' => $flight->id,
+            'seatCapacity' => 250,
+            'status' => 'inactive',
+        ]);
     }
 
     public function test_CheckIfCanDeleteAFlight()
