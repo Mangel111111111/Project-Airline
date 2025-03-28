@@ -13,8 +13,8 @@ class Flight extends Model
     use HasFactory;
 
     protected $fillable = [
-        'origin',
-        'destination',
+        'origin_airport_id',
+        'destination_airport_id',
         'departureTime',
         'arrivalTime',
         'airplane_id',
