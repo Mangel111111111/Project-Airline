@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Reservation;
-use App\Models\Flight;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -23,13 +22,9 @@ class ReservationController extends Controller
             'flight_id' => 'required|exists:flights,id',
         ]);
 
-        try {
-            $reservation = Reservation::create($validated);
+        $reservation = Reservation::create($validated);
 
-            return response()->json($reservation->load(['user', 'flight']), 201);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 400);
-        }
+        return response()->json($reservation->load(['user', 'flight']), 201);
     }
 
     public function show(string $id)
@@ -56,13 +51,9 @@ class ReservationController extends Controller
             'flight_id' => 'sometimes|exists:flights,id',
         ]);
 
-        try {
-            $reservation->update($validated);
+        $reservation->update($validated);
 
-            return response()->json($reservation->load(['user', 'flight']), 200);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 400);
-        }
+        return response()->json($reservation->load(['user', 'flight']), 200);
     }
 
     public function destroy(string $id)
@@ -73,12 +64,8 @@ class ReservationController extends Controller
             return response()->json(['error' => 'Reservation not found'], 404);
         }
 
-        try {
-            $reservation->delete();
+        $reservation->delete();
 
-            return response()->json(['message' => 'Reservation deleted successfully'], 200);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 400);
-        }
+        return response()->json(['message' => 'Reservation deleted successfully'], 200);
     }
 }
