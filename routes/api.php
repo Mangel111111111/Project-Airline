@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\FlightController;
 use App\Http\Controllers\Api\AirportController;
 use App\Http\Controllers\Api\AirplaneController;
+use App\Http\Controllers\Api\ReservationController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -34,3 +35,9 @@ Route::post('users', [UserController::class, 'store'])->name('apiStoreUser');
 Route::get('users/{id}', [UserController::class, 'show'])->name('apiShowUser');
 Route::put('users/{id}', [UserController::class, 'update'])->name('apiUpdateUser');
 Route::delete('users/{id}', [UserController::class, 'destroy'])->name('apiDestroyUser');
+
+Route::get('reservations', [ReservationController::class, 'index'])->name('apiIndexReservation');
+Route::post('reservations', [ReservationController::class, 'store'])->name('apiStoreReservation');
+Route::get('reservations/{id}', [ReservationController::class, 'show'])->name('apiShowReservation');
+Route::put('reservations/{id}', [ReservationController::class, 'update'])->name('apiUpdateReservation');
+Route::delete('reservations/{id}', [ReservationController::class, 'destroy'])->name('apiDestroyReservation');
