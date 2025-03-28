@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Reservation;
+use App\Models\Flight;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -21,6 +22,12 @@ class ReservationController extends Controller
             'user_id' => 'required|exists:users,id',
             'flight_id' => 'required|exists:flights,id',
         ]);
+
+        $flight = Flight::find($validated['flight_id']);
+
+        if ($flight->availableSeats <= 0) {
+            return response()->json(['error' => 'No available seats for this flight'], 400);
+        }
 
         $reservation = Reservation::create($validated);
 

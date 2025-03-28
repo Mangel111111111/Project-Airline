@@ -29,15 +29,19 @@ class Flight extends Model
 
     public function updateStatus()
     {
-        if ($this->availableSeats <= 0 || now()->greaterThan($this->departureTime)) {
+        $availableSeats = $this->availableSeats;
+
+        if ($availableSeats <= 0 || now()->greaterThan($this->departureTime)) {
             $this->status = 'inactive';
+            $this->save();
+            return;
         }
 
-        if ($this->availableSeats > 0 && now()->lessThanOrEqualTo($this->departureTime)) {
+        if ($availableSeats > 0 && now()->lessThanOrEqualTo($this->departureTime)) {
             $this->status = 'active';
+            
+            $this->save();
         }
-
-        $this->save();
     }
 
     public function reservations()

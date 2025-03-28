@@ -32,15 +32,9 @@ class Reservation extends Model
         static::creating(function ($reservation) {
             $flight = $reservation->flight;
 
-            if ($flight->availableSeats <= 0) {
+                        if ($flight->availableSeats <= 0) {
                 throw new \Exception('No available seats for this flight.');
             }
-
-            $flight->decrement('availableSeats');
-        });
-
-        static::deleting(function ($reservation) {
-            $reservation->flight->increment('availableSeats');
         });
     }
 }
