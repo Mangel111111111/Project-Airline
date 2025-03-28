@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\FlightController;
 use App\Http\Controllers\Api\AirportController;
 use App\Http\Controllers\Api\AirplaneController;
@@ -27,3 +28,9 @@ Route::post('airports', [AirportController::class, 'store'])->name('apiStoreAirp
 Route::get('airports/{id}', [AirportController::class, 'show'])->name('apiShowAirplane');
 Route::put('airports/{id}', [AirportController::class, 'update'])->name('apiUpdateAirplane');
 Route::delete('airports/{id}', [AirportController::class, 'destroy'])->name('apiDestroyAirplane');
+
+Route::get('users', [UserController::class, 'index'])->name('apiIndexUser');
+Route::post('users', [UserController::class, 'store'])->name('apiStoreUser');
+Route::get('users/{id}', [UserController::class, 'show'])->name('apiShowUser');
+Route::put('users/{id}', [UserController::class, 'update'])->name('apiUpdateUser');
+Route::delete('users/{id}', [UserController::class, 'destroy'])->name('apiDestroyUser');
