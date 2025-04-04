@@ -183,7 +183,7 @@ Run tests with coverage report
 If everything is configured correctly, tests should pass.
 
 #### Coverage Folder:
-![image](https://res.cloudinary.com/del1j3jge/image/upload/v1742934569/Captura_de_pantalla_2025-03-25_212546_ki656t.png)
+![image](https://res.cloudinary.com/del1j3jge/image/upload/v1743788223/Captura_de_pantalla_2025-04-04_193525_ypaobq.png)
 
 ## ✍️🙍 Author
 **Miguel Angel García:**  [![GitHub](https://img.shields.io/badge/GitHub-Perfil-black?style=flat-square&logo=github)](https://github.com/Mangel111111111)
