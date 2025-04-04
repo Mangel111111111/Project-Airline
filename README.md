@@ -150,6 +150,21 @@ npm run dev
 | `country`      | `string`     |                             |
 | `created_at`   | `timestamp`  | Auto-generated             |
 | `updated_at`   | `timestamp`  | Auto-generated             |
+
+---
+
+## 🪑 Reservations Table
+
+| Column         | Type         | Attributes                          |
+|----------------|--------------|-------------------------------------|
+| `id`           | `bigInteger` | Primary key, auto-increment         |
+| `user_id`      | `bigInteger` | Foreign key (Users), indexed        |
+| `flight_id`    | `bigInteger` | Foreign key (Flights), indexed      |
+| `seat_number`  | `string`     | Nullable                           |
+| `created_at`   | `timestamp`  | Auto-generated                     |
+| `updated_at`   | `timestamp`  | Auto-generated                     |
+
+---
 ## 🏃‍♂️🧪 Running Tests
 
 To run tests, update phpunit.xml:
@@ -168,7 +183,7 @@ Run tests with coverage report
 If everything is configured correctly, tests should pass.
 
 #### Coverage Folder:
-![image](https://res.cloudinary.com/del1j3jge/image/upload/v1742934569/Captura_de_pantalla_2025-03-25_212546_ki656t.png)
+![image](https://res.cloudinary.com/del1j3jge/image/upload/v1743788223/Captura_de_pantalla_2025-04-04_193525_ypaobq.png)
 
 ## ✍️🙍 Author
 **Miguel Angel García:**  [![GitHub](https://img.shields.io/badge/GitHub-Perfil-black?style=flat-square&logo=github)](https://github.com/Mangel111111111)
