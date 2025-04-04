@@ -150,6 +150,21 @@ npm run dev
 | `country`      | `string`     |                             |
 | `created_at`   | `timestamp`  | Auto-generated             |
 | `updated_at`   | `timestamp`  | Auto-generated             |
+
+---
+
+## 🪑 Reservations Table
+
+| Column         | Type         | Attributes                          |
+|----------------|--------------|-------------------------------------|
+| `id`           | `bigInteger` | Primary key, auto-increment         |
+| `user_id`      | `bigInteger` | Foreign key (Users), indexed        |
+| `flight_id`    | `bigInteger` | Foreign key (Flights), indexed      |
+| `seat_number`  | `string`     | Nullable                           |
+| `created_at`   | `timestamp`  | Auto-generated                     |
+| `updated_at`   | `timestamp`  | Auto-generated                     |
+
+---
 ## 🏃‍♂️🧪 Running Tests
 
 To run tests, update phpunit.xml:
